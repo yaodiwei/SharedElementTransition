@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="avatar_width">45dp</dimen>
+    <dimen name="person_name">18sp</dimen>
+    <dimen name="person_desc">14sp</dimen>
+</resources>
