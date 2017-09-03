@@ -43,7 +43,7 @@ public class PersonDetailActivity extends AppCompatActivity {
     @BindView(R.id.nsv_content)
     NestedScrollView mNsvContent;
 
-    private int duration = 2000;
+    private int duration = 1500;
     private ArrayList<SharedElement> mElements;
     private boolean animating;
 
@@ -55,9 +55,8 @@ public class PersonDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //intent获取内容, 设置到当前页面
         Person person = getIntent().getParcelableExtra(EXTRA_PERSON);
-        mElements = getIntent().getParcelableArrayListExtra(EXTRA_ELEMENTS);
-
         if (TextUtils.isEmpty(person.avatar)) {
             Glide.with(PersonDetailActivity.this).load(R.drawable.default_avatar_1).into(mIvAvatar);
         } else {
@@ -66,6 +65,8 @@ public class PersonDetailActivity extends AppCompatActivity {
         mTvName.setText(person.name);
         mTvDesc.setText(person.desc);
 
+        //共享元素的动画
+        mElements = getIntent().getParcelableArrayListExtra(EXTRA_ELEMENTS);
         animating = true;
         for (int i = 0; i< mElements.size(); i++){
             final int j = i;
@@ -90,6 +91,8 @@ public class PersonDetailActivity extends AppCompatActivity {
                 }
             });
         }
+
+        //其他动画
         mFlBackground.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -124,6 +127,7 @@ public class PersonDetailActivity extends AppCompatActivity {
         if (animating == true) {
             return;
         }
+        //共享元素动画
         animating = true;
         for (int i=0; i<mElements.size(); i++){
             final int j = i;
@@ -141,6 +145,7 @@ public class PersonDetailActivity extends AppCompatActivity {
             ObjectAnimator.ofPropertyValuesHolder(view, pvh1, pvh2, pvh3, pvh4).setDuration(duration).start();
         }
 
+        //其他动画
         TypedValue tv = new TypedValue();
         getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
         int actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
