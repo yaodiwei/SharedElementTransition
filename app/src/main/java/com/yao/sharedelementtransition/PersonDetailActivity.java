@@ -26,9 +26,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.animation.ObjectAnimator.ofFloat;
-
-
 public class PersonDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "PersonDetailActivity";
@@ -46,7 +43,7 @@ public class PersonDetailActivity extends AppCompatActivity {
     @BindView(R.id.nsv_content)
     NestedScrollView mNsvContent;
 
-    private int duration = 10000;
+    private int duration = 2000;
     private ArrayList<SharedElement> mElements;
     private boolean animating;
 
@@ -100,7 +97,7 @@ public class PersonDetailActivity extends AppCompatActivity {
                 TypedValue tv = new TypedValue();
                 getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
                 int actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
-                ofFloat(mFlBackground, "translationY", -mFlBackground.getHeight()+actionBarHeight, 0).setDuration(duration).start();
+                ObjectAnimator.ofFloat(mFlBackground, "translationY", -mFlBackground.getHeight()+actionBarHeight, 0).setDuration(duration).start();
             }
         });
         mNsvContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -147,12 +144,12 @@ public class PersonDetailActivity extends AppCompatActivity {
         TypedValue tv = new TypedValue();
         getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
         int actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
-        ofFloat(mFlBackground, "translationY", 0, -mFlBackground.getHeight()+actionBarHeight).setDuration(duration).start();
+        ObjectAnimator.ofFloat(mFlBackground, "translationY", 0, -mFlBackground.getHeight()+actionBarHeight).setDuration(duration).start();
 
         int []location = new int[2];
         mNsvContent.getLocationInWindow(location);
         int y = location[1];
-        ObjectAnimator animator = ofFloat(mNsvContent, "translationY", 0, ScreenUtil.getScreenHeight(PersonDetailActivity.this)-y).setDuration(duration);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(mNsvContent, "translationY", 0, ScreenUtil.getScreenHeight(PersonDetailActivity.this)-y).setDuration(duration);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
